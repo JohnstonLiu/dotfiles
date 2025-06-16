@@ -1,0 +1,177 @@
+# This is a demo config to show some of the most important commands more easily.
+# This is meant to be changed and configured, as it is intentionally kept sparse.
+# For a more advanced configuration example see my dotfiles:
+# https://github.com/FelixKratz/dotfiles
+
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+
+##### Bar Appearance #####
+# Configuring the general appearance of the bar, these are only some of the
+# options available. For all options see:
+# https://felixkratz.github.io/SketchyBar/config/bar
+# If you are looking for other colors, see the color picker:
+# https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
+
+sketchybar --bar height=26        \
+                 blur_radius=50   \
+                 position=bottom\
+                 padding_left=10  \
+                 padding_right=10 \
+                 color=0x15ffffff
+
+##### Changing Defaults #####
+# We now change some default values that are applied to all further items
+# For a full list of all available item properties see:
+# https://felixkratz.github.io/SketchyBar/config/items
+
+FONT="SF Mono"
+
+sketchybar --default updates=when_shown                    \
+                     drawing=on                            \
+                     icon.font="$FONT:Regular:12.0"  \
+                     icon.color=0xffffffff                 \
+                     label.font="$FONT:Regular:12.0" \
+                     label.color=0xffffffff                \
+                     label.padding_left=4                  \
+                     label.padding_right=4                 \
+                     icon.padding_left=4                   \
+                     icon.padding_right=4
+
+##### Adding Mission Control Space Indicators #####
+# Now we add some mission control spaces:
+# https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item
+# to indicate active and available mission control spaces
+
+SPACE_ICONS=("一" "二" "三" "四" "五" "六" "七" "八" "九" "十")
+
+for i in "${!SPACE_ICONS[@]}"
+do
+  sid=$(($i+1))
+  sketchybar --add space space.$sid left                                 \
+             --set space.$sid associated_space=$sid                      \
+                              icon=${SPACE_ICONS[i]}                     \
+                              icon.padding_left=8                        \
+                              icon.padding_right=8                       \
+                              background.padding_left=5                  \
+                              background.padding_right=5                 \
+                              background.color=0x44ffffff                \
+                              background.corner_radius=5                 \
+                              background.height=22                       \
+                              background.drawing=off                     \
+                              label.drawing=off                          \
+                              script="$PLUGIN_DIR/space.sh"              \
+                              click_script="yabai -m space --focus $sid"
+done
+
+##### Adding Left Items #####
+# We add some regular items to the left side of the bar
+# only the properties deviating from the current defaults need to be set
+
+#sketchybar --add item space_separator left                            \
+#           --add item window_title left                               \
+#           --set window_title    script="$PLUGIN_DIR/window_title.sh" \
+#                                 icon.drawing=off                     \
+#           --subscribe window_title front_app_switched
+
+##### Adding Right Items #####
+# DATE TIME
+sketchybar -m --add item date_time right \
+		--set date_time label.padding_left=5 \
+		--set date_time update_freq=1 \
+		--set date_time script="$PLUGIN_DIR/date_time.sh" \
+
+#battery
+sketchybar -m --add item battery right \
+              --set battery update_freq=3 \
+              --set battery script="$PLUGIN_DIR/battery.sh" \
+                            background.padding_left=10 \
+              --subscript battery system_woke
+
+#wifi
+#sketchybar --add item wifi right                         \
+#           --set wifi    script="$PLUGIN_DIR/wifi.sh"    \
+#                         update_freq=3                   \
+#                         background.padding_left=5
+
+source "$PLUGIN_DIR/wifi.sh"
+
+sketchybar --add item           wifi.control right                      \
+                                                                        \
+           --set wifi.control   label.drawing=on                      \
+                                script="$PLUGIN_DIR/wifi.sh"          \
+                                update_freq=3                          \
+                                click_script="$POPUP_CLICK_SCRIPT"      \
+                                popup.background.color=0x70000000       \
+                                popup.blur_radius=50                    \
+                                popup.background.corner_radius=5        \
+
+# Color Palette
+BLACK=0xff181926
+WHITE=0xffcad3f5
+RED=0xffed8796
+GREEN=0xffa6da95
+BLUE=0xff8aadf4
+YELLOW=0xffeed49f
+ORANGE=0xfff5a97f
+MAGENTA=0xffc6a0f6
+GREY=0xff939ab7
+TRANSPARENT=0x00000000
+
+#cpu graph
+#sketchybar --add item        cpu.top right                 \
+#           --set cpu.top     label.font="$FONT:Medium:7" \
+#                             label=CPU                     \
+#                             icon.drawing=off              \
+#                             width=0                       \
+#                             y_offset=6                    \
+#                             background.padding_right=10   \
+#                                                           \
+#           --add item        cpu.percent right             \
+#           --set cpu.percent label.font="$FONT:Bold:12"   \
+#                             label=CPU                     \
+#                             y_offset=-4                   \
+#                             width=40                      \
+#                             icon.drawing=off              \
+#                             update_freq=2                 \
+#                             background.padding_right=10   \
+#                                                           \
+#           --add graph       cpu.sys right 100             \
+#           --set cpu.sys     width=0                       \
+#                             graph.color=$RED              \
+#                             graph.fill_color=$RED         \
+#                             label.drawing=off             \
+#                             icon.drawing=off              \
+#                             background.padding_right=10   \
+#                                                           \
+#           --add graph       cpu.user right 100            \
+#           --set cpu.user    graph.color=$BLUE             \
+#                             update_freq=2                 \
+#                             label.drawing=off             \
+#                             icon.drawing=off              \
+#                             background.padding_right=10   \
+#                             script="$PLUGIN_DIR/cpu.sh"
+####################### CENTER ITEMS ###################
+# CURRENT SPOTIFY SONG
+	# Adding custom events which can listen on distributed notifications from other running processes
+sketchybar -m --add event spotify_change "com.spotify.client.PlaybackStateChanged" \
+              --add item spotifyIndicator center \
+              --set spotifyIndicator update_freq=1 \
+              --set spotifyIndicator script="$PLUGIN_DIR/spotifyIndicator.sh" \
+              #--set spotifyIndicator click_script="osascript -e 'tell application \"Spotify\" to pause'" \
+              --subscribe spotifyIndicator spotify_change
+
+
+#misc
+sketchybar --add event lock   "com.apple.screenIsLocked"   \
+           --add event unlock "com.apple.screenIsUnlocked" \
+                                                           \
+           --add item         animator left                \
+           --set animator     drawing=off                  \
+                              updates=on                   \
+                              script="$PLUGIN_DIR/wake.sh" \
+           --subscribe        animator lock unlock
+
+##### Finalizing Setup #####
+sketchybar --update
+
+echo "sketchybar configuration loaded.."
