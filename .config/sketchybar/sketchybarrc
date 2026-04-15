@@ -42,11 +42,11 @@ sketchybar --default updates=when_shown                    \
 # https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item
 # to indicate active and available mission control spaces
 
-SPACE_ICONS=("一" "二" "三" "四" "五" "六" "七" "八" "九" "十")
+SPACE_ICONS=("一" "二" "三" "四" "五" "六" "七" "八" "九")
 
 for i in "${!SPACE_ICONS[@]}"
 do
-  sid=$(($i+1))
+  sid=$(($i+2))
   sketchybar --add space space.$sid left                                 \
              --set space.$sid associated_space=$sid                      \
                               icon=${SPACE_ICONS[i]}                     \
