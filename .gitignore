@@ -1,0 +1,7 @@
+*
+!.gitignore
+!.skhdrc
+!.yabairc
+!.config/
+!.config/borders
+!.config/sketchybar
