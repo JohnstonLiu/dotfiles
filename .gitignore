@@ -5,3 +5,5 @@
 !.config/
 !.config/borders
 !.config/sketchybar
+!.config/nvim
+!.config/nvim/**
