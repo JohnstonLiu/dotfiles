@@ -22,4 +22,20 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<F2>", ":%y+<CR>")
 
 vim.diagnostic.config({ virtual_text = true })
+
+-- auto-reload buffer when the underlying file changes on disk
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, {
+    callback = function()
+        if vim.fn.mode() ~= 'c' and vim.fn.bufexists('[Command Line]') == 0 then
+            vim.cmd('checktime')
+        end
+    end,
+})
+vim.api.nvim_create_autocmd('FileChangedShellPost', {
+    callback = function()
+        vim.notify('File changed on disk; buffer reloaded', vim.log.levels.INFO)
+    end,
+})
+
 print("loaded johnston/init.lua")

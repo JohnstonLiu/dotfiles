@@ -2,10 +2,9 @@ return {
     {
         'saghen/blink.cmp',
         -- optional: provides snippets for the snippet source
-        dependencies = { 'rafamadriz/friendly-snippets', 'fang2hou/blink-copilot' },
+        dependencies = { 'saghen/blink.lib', 'rafamadriz/friendly-snippets', 'fang2hou/blink-copilot' },
 
-        -- build from source — keeps the dylib in sync with the checked-out source
-        build = 'cargo build --release',
+        build = function() require('blink.cmp').build():wait(60000) end,
         -- If you use nix, you can build from source using latest nightly rust with:
         -- build = 'nix run .#build-plugin',
 
