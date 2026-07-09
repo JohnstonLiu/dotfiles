@@ -4,6 +4,13 @@ require('johnston.lazy')
 vim.cmd.set('relativenumber number')
 vim.cmd.set('tabstop=4 shiftwidth=4 expandtab')
 
+-- inherit terminal backgrond transparency
+vim.api.nvim_set_hl(0, "Normal", { bg = "NONE", ctermbg = "NONE" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE", ctermbg = "NONE" })
+
+-- always show sign column so gitsigns bars don't make the gutter jump
+vim.opt.signcolumn = 'yes'
+
 vim.api.nvim_create_autocmd('FileType', {
     pattern = { '*.js', '*.ts', '*.jsx', '*.tsx', },
     command = 'setlocal tabstop=2 shiftwidth=2'

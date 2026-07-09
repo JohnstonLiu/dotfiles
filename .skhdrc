@@ -12,8 +12,8 @@ ctrl + shift - f : yabai -m window --toggle float
 
 #swapping
 ctrl + alt - h : yabai -m window --swap west
-ctrl + alt - j : yabai -m window --swap north
-ctrl + alt - k : yabai -m window --swap south
+ctrl + alt - k : yabai -m window --swap north
+ctrl + alt - j : yabai -m window --swap south
 ctrl + alt - l : yabai -m window --swap east
 
 # Increase window size.

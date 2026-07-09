@@ -4,7 +4,7 @@ return {
         -- optional: provides snippets for the snippet source
         dependencies = { 'saghen/blink.lib', 'rafamadriz/friendly-snippets', 'fang2hou/blink-copilot' },
 
-        build = function() require('blink.cmp').build():wait(60000) end,
+        build = function() require('blink.cmp').build():pwait() end,
         -- If you use nix, you can build from source using latest nightly rust with:
         -- build = 'nix run .#build-plugin',
 
