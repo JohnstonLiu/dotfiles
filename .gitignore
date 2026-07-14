@@ -7,3 +7,6 @@
 !.config/sketchybar
 !.config/nvim
 !.config/nvim/**
+
+!.config/ghostty/
+!.config/ghostty/**
