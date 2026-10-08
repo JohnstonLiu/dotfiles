@@ -151,14 +151,14 @@ TRANSPARENT=0x00000000
 #                             background.padding_right=10   \
 #                             script="$PLUGIN_DIR/cpu.sh"
 ####################### CENTER ITEMS ###################
-# CURRENT SPOTIFY SONG
-	# Adding custom events which can listen on distributed notifications from other running processes
+# NOW PLAYING
 sketchybar -m --add event spotify_change "com.spotify.client.PlaybackStateChanged" \
-              --add item spotifyIndicator center \
-              --set spotifyIndicator update_freq=1 \
-              --set spotifyIndicator script="$PLUGIN_DIR/spotifyIndicator.sh" \
-              #--set spotifyIndicator click_script="osascript -e 'tell application \"Spotify\" to pause'" \
-              --subscribe spotifyIndicator spotify_change
+              --add item nowPlaying center \
+              --set nowPlaying update_freq=2 \
+                               updates=on \
+                               script="$PLUGIN_DIR/nowPlaying.sh" \
+                               click_script="media-control toggle-play-pause" \
+              --subscribe nowPlaying spotify_change
 
 
 #misc
