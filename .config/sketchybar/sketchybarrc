@@ -85,7 +85,7 @@ sketchybar -m --add item battery right \
               --set battery update_freq=3 \
               --set battery script="$PLUGIN_DIR/battery.sh" \
                             background.padding_left=10 \
-              --subscript battery system_woke
+              --subscribe battery system_woke
 
 #wifi
 #sketchybar --add item wifi right                         \
