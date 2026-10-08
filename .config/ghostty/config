@@ -1,1 +1,26 @@
-/Users/johnstonliu/Library/Application Support/com.mitchellh.ghostty/config.ghostty
+font-size = 16
+font-thicken = true
+quick-terminal-animation-duration = 0
+keybind = global:super+grave_accent=toggle_quick_terminal
+cursor-style = block
+shell-integration-features = no-cursor
+cursor-style-blink = false
+link-url = true
+window-inherit-working-directory = true
+window-inherit-font-size = true
+window-theme = system
+clipboard-trim-trailing-spaces = true
+mouse-hide-while-typing = true
+macos-titlebar-proxy-icon = hidden
+macos-icon = custom-style
+macos-icon-frame = plastic
+macos-icon-ghost-color = FFFFFF
+macos-icon-screen-color = 000000
+macos-titlebar-style= "hidden"
+theme = Broadcast
+macos-auto-secure-input = false
+background-opacity = 0.80
+
+quick-terminal-size = 60%,75%
+quick-terminal-position = center
+shell-integration-features = ssh-env,ssh-terminfo
